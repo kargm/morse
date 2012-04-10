@@ -1,6 +1,7 @@
 import logging; logger = logging.getLogger("morse." + __name__)
 import math
 import morse.core.actuator
+from morse.core.services import async_service
 import morse.helpers.math as morse_math
 from morse.core.services import service
 from morse.core.exceptions import MorseRPCInvokationError
@@ -20,6 +21,7 @@ class ArmatureActuatorClass(morse.core.actuator.MorseActuatorClass):
         Constructor method.
         Receives the reference to the Blender object.
         """     
+        print('Now initializing the armature_actuator')
         logger.info('%s initialization' % obj.name)
         # Call the constructor of the parent class
         super(ArmatureActuatorClass,self).__init__(obj, parent)
@@ -152,6 +154,16 @@ class ArmatureActuatorClass(morse.core.actuator.MorseActuatorClass):
             msg = str(channel_name) + " is not a valid channel name"
             raise MorseRPCInvokationError(msg)
 
+    @async_service
+    def set_rotation_action(self, channel_name, rotation):
+        """
+        MORSE Service to set the rotation angle of the given channel_name to the angles list (x,y,z).
+        """
+        armature = self.blender_obj
+        channel = armature.channels[str(channel_name)]
+        self.set_joint_rotation(armature, channel, rotation)
+        return None
+
     @service
     def get_IK_minmax(self):
         """
@@ -219,4 +231,19 @@ class ArmatureActuatorClass(morse.core.actuator.MorseActuatorClass):
         Main function of this component.
         Is called every tick of the clock.
         """
-        pass
+        print('Now is in the default_action function')
+        posture_reached = True
+        for channel in armature.channels:
+            print("channel: %s"%get_rotation(channel))
+            print("local_data: %s"%self.local_data[channel.name])
+            if get_rotation(channel) != self.local_data[channel.name]:
+                posture_reached = False
+
+
+        #Do we have a running request? if yes, notify the completion
+        if posture_reached == True:
+            parent.move_status = "Arrived"
+            self.completed(status.SUCCESS, parent.move_status)
+
+            logger.debug("TARGET REACHED")
+            logger.debug("Robot {0} move status: '{1}'".format(parent.blender_obj.name, parent.move_status))
