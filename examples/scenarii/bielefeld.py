@@ -9,7 +9,7 @@ bender.translate(x=0, y=3, z=0.0)
 bender.rotate(z=3.1415)
 
 human = Human()
-human.translate(x=-3, y=0.2, z=0.0)
+human.translate(x=-3, y=-0.3, z=0.0)
 #human.rotate(z=-3.0)
 
 Pose_sensor = Sensor('pose')
@@ -28,6 +28,19 @@ bender.append(keyboard)
 
 # Configuring the middlewares
 Pose_sensor.configure_mw('ros')
+
+# Furniture
+cb1 = PassiveObject('props/furnitures.blend', 'IKEA_cupboard_BILLY_1')
+cb1.translate(x=2.5, y=2.4)
+cb1.rotate(z=-1.571)
+cb2 = PassiveObject('props/furnitures.blend', 'IKEA_cupboard_BILLY_1')
+cb2.rotate(z=-1.571)
+cb2.translate(x=2.5, y=-0.3)
+cb3 = PassiveObject('props/furnitures.blend', 'IKEA_cupboard_BILLY_1')
+cb3.rotate(z=-1.571)
+cb3.translate(x=2.5, y=-3)
+cb4 = PassiveObject('props/furnitures.blend', 'IKEA_cupboard_BILLY_1')
+cb4.translate(y=3.8)
 
 # Set scenario
 env = Environment('bielefeld/bielefeld')
