@@ -1,6 +1,10 @@
 from morse.builder.morsebuilder import *
 from morse.builder.extensions.pr2extension import PR2
 
+
+import roslib; roslib.load_manifest("morsetesting")
+from morsetesting.msg import *
+
 # http://www.openrobots.org/morse/doc/latest/user/tutorial.html
 
 # Append b21 robot to the scene
@@ -26,8 +30,21 @@ keyboard = Actuator('keyboard')
 keyboard.name = 'keyboard_control'
 bender.append(keyboard)
 
+# Waypoint actuator
+dest = Actuator('waypoint')
+#dest.properties(Speed = 1.5)
+#dest.properties(ObstacleAvoidance = False)
+#dest.properties(tolerance = 1.5)
+
+human.append(dest)
+
+dest.configure_service('ros')
+dest.configure_overlay('ros', 'morse.middleware.ros.overlays.actuator.WayPoint')
+
 # Configuring the middlewares
 Pose_sensor.configure_mw('ros')
+Human_pose.configure_mw('ros')
+#dest.configure_mw('ros', ['morse.middleware.ros_mw.ROSClass', 'read_waypoint', 'morse/middleware/ros/waypoint2D'])
 
 # Furniture
 cb1 = PassiveObject('props/furnitures.blend', 'IKEA_cupboard_BILLY_1')
@@ -41,6 +58,7 @@ cb3.rotate(z=-1.571)
 cb3.translate(x=2.5, y=-3)
 cb4 = PassiveObject('props/furnitures.blend', 'IKEA_cupboard_BILLY_1')
 cb4.translate(y=3.8)
+cb4.setgraspable()
 
 # Set scenario
 env = Environment('bielefeld/bielefeld')
