@@ -7,8 +7,19 @@ from morsetesting.msg import *
 
 # http://www.openrobots.org/morse/doc/latest/user/tutorial.html
 
+# For Fake-Laser
+sub = Robot('submarine')
+sub.translate(x=10, y=0, z=-10.0)
+Sick = Sensor('sick')
+Sick.translate(x=0.275, z=0.252)
+sub.append(Sick)
+Sick.properties(Visible_arc = False)
+Sick.properties(laser_range = 30.0000)
+Sick.properties(resolution = 1.0000)
+Sick.properties(scan_window = 180.0000)
+
 # Append b21 robot to the scene
-bender = Robot('b21')
+bender = Robot('jido')
 bender.translate(x=0, y=3, z=0.0)
 bender.rotate(z=3.1415)
 
@@ -17,13 +28,15 @@ human.translate(x=-3, y=-0.3, z=0.0)
 #human.rotate(z=-3.0)
 
 Pose_sensor = Sensor('pose')
-Pose_sensor.name = 'Pose_sensor'
+Pose_sensor.name = 'Robot_pose'
 bender.append(Pose_sensor)
 
-
 Human_pose = Sensor('pose')
-Human_pose.name = 'human_sensor'
+Human_pose.name = 'Human_pose'
 human.append(Human_pose)
+
+Odometry = Sensor('odometry')
+human.append(Odometry)
 
 # Keyboard control
 keyboard = Actuator('keyboard')
@@ -31,19 +44,23 @@ keyboard.name = 'keyboard_control'
 bender.append(keyboard)
 
 # Waypoint actuator
-dest = Actuator('waypoint')
+dest = Actuator('v_omega')
 #dest.properties(Speed = 1.5)
 #dest.properties(ObstacleAvoidance = False)
 #dest.properties(tolerance = 1.5)
 
 human.append(dest)
 
-dest.configure_service('ros')
-dest.configure_overlay('ros', 'morse.middleware.ros.overlays.actuator.WayPoint')
+#dest.configure_service('ros')
+#dest.configure_overlay('ros', 'morse.middleware.ros.overlays.actuator.WayPoint')
 
 # Configuring the middlewares
-Pose_sensor.configure_mw('ros')
+#Pose_sensor.configure_mw('ros')
 Human_pose.configure_mw('ros')
+dest.configure_mw('ros')
+Odometry.configure_mw('ros')
+Sick.configure_mw('ros')
+
 #dest.configure_mw('ros', ['morse.middleware.ros_mw.ROSClass', 'read_waypoint', 'morse/middleware/ros/waypoint2D'])
 
 # Furniture
