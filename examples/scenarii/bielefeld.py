@@ -26,6 +26,7 @@ bender.rotate(z=3.1415)
 human = Human()
 human.translate(x=-3, y=-0.3, z=0.0)
 #human.rotate(z=-3.0)
+human.use_world_camera()
 
 Pose_sensor = Sensor('pose')
 Pose_sensor.name = 'Robot_pose'
@@ -79,7 +80,8 @@ cb4.setgraspable()
 
 # Set scenario
 env = Environment('bielefeld/bielefeld')
-env.aim_camera([1.0470, 0, 0.7854])
+env.place_camera([-3.1033, -4.9475, 1.8817])
+env.aim_camera([1.2, -0.001613, -0.574])
 
 
 
