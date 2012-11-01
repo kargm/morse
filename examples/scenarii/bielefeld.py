@@ -44,7 +44,7 @@ keyboard.name = 'keyboard_control'
 bender.append(keyboard)
 
 # Waypoint actuator
-dest = Actuator('v_omega')
+dest = Actuator('xy_omega')
 #dest.properties(Speed = 1.5)
 #dest.properties(ObstacleAvoidance = False)
 #dest.properties(tolerance = 1.5)
