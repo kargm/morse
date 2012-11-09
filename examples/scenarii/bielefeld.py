@@ -21,7 +21,7 @@ Sick.properties(scan_window = 180.0000)
 # Append b21 robot to the scene
 bender = Robot('jido')
 bender.translate(x=0, y=3, z=0.0)
-bender.rotate(z=3.1415)
+bender.rotate(z=-1.57)
 
 human = Human()
 human.translate(x=-3, y=-0.3, z=0.0)
@@ -42,6 +42,7 @@ human.append(Odometry)
 # Keyboard control
 keyboard = Actuator('keyboard')
 keyboard.name = 'keyboard_control'
+keyboard.properties(Speed = 0.6)
 bender.append(keyboard)
 
 # Waypoint actuator
