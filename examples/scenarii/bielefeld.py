@@ -80,8 +80,9 @@ cb4.setgraspable()
 
 # Set scenario
 env = Environment('bielefeld/bielefeld')
-env.place_camera([-3.1033, -4.9475, 1.8817])
-env.aim_camera([1.2, -0.001613, -0.574])
+env.place_camera([-3.1033, -4.9475, 1.6817])
+env.aim_camera([1.2, -0.001613, -0.686])
+#env.set_stereo('STEREO')
 
 
 
