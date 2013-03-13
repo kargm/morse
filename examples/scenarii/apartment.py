@@ -1,57 +1,51 @@
-from morse.builder.morsebuilder import *
-from morse.builder.extensions.pr2extension import PR2
+from morse.builder import *
 
-# http://www.openrobots.org/morse/doc/latest/user/tutorial.html
+# A PR2 robot to the scene
+james = BasePR2()
+james.add_interface('ros')
+james.translate(x=-3, y=2.7, z=0.0)
 
-# Append ATRV robot to the scene
-james = PR2()
-james.configure_service('ros')
-james.head.configure_overlay('ros', 'morse.middleware.ros.overlays.pr2.PR2')
-james.l_arm.configure_overlay('ros', 'morse.middleware.ros.overlays.pr2.PR2')
-james.r_arm.configure_overlay('ros', 'morse.middleware.ros.overlays.pr2.PR2')
-james.torso_lift.configure_overlay('ros', 'morse.middleware.ros.overlays.pr2.PR2')
-james.translate(x=0.5, y=1.2, z=0.0)
+hans = Human()
 
-human = Human()
-human.translate(x=2.5, y=0, z=0.0)
-#human.rotate(z=-3.0)
+human_pose = Pose()
+hans.append(human_pose)
+human_pose.add_interface('ros')
 
-# Sensors and Actuators for navigation stack
-pr2_posture = Sensor('pr2_posture')
-james.append(pr2_posture)
+semantic_camera = SemanticCamera()
+semantic_camera.translate(x=0.086, y=0, z=1.265)
+james.append(semantic_camera)
+#semantic_camera.add_interface('ros', ['morse.middleware.ros_mw.ROSClass', 'post_lisp_code', 'morse/middleware/ros/semantic_camera'])
+semantic_camera.add_interface('ros')
 
-Motion_Controller = Actuator('xy_omega')
-james.append(Motion_Controller)
+motion = MotionXYW()
+james.append(motion)
+motion.add_interface('ros', topic='/cmd_vel')
 
-Odometry = Sensor('odometry')
-james.append(Odometry)
+# An odometry sensor to get odometry information
+odometry = Odometry()
+james.append(odometry)
+odometry.add_interface('ros', topic="/odom")
 
-Pose_sensor = Sensor('pose')
-Pose_sensor.name = 'Pose_sensor'
-james.append(Pose_sensor)
+robot_pose = Pose()
+robot_pose.name = 'robot_pose'
+james.append(robot_pose)
+robot_pose.add_interface('ros')
 
-IMU = Sensor('imu')
-james.append(IMU)
+scan = Hokuyo()
+scan.translate(x=0.275, z=0.252)
+james.append(scan)
+scan.properties(Visible_arc = False)
+scan.properties(laser_range = 30.0)
+scan.properties(resolution = 1.0)
+scan.properties(scan_window = 180.0)
+scan.create_laser_arc()
 
-Sick = Sensor('sick')
-Sick.translate(x=0.275, z=0.252)
-james.append(Sick)
-Sick.properties(Visible_arc = False)
-Sick.properties(laser_range = 30.0000)
-Sick.properties(resolution = 1.0000)
-Sick.properties(scan_window = 180.0000)
+scan.add_interface('ros', topic='/scan')
 
 # Keyboard control
-keyboard = Actuator('keyboard')
+keyboard = Keyboard()
 keyboard.name = 'keyboard_control'
 james.append(keyboard)
-
-# Configuring the middlewares
-Pose_sensor.configure_mw('ros')
-Sick.configure_mw('ros')
-Motion_Controller.configure_mw('ros')
-IMU.configure_mw('ros')
-pr2_posture.configure_mw('ros', ['ROS', 'post_jointState', 'morse/middleware/ros/pr2_posture'])
 
 # Add passive objects
 cornflakes = PassiveObject('props/kitchen_objects.blend', 'Cornflakes')
