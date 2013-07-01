@@ -40,7 +40,7 @@ scan.properties(resolution = 1.0)
 scan.properties(scan_window = 180.0)
 scan.create_laser_arc()
 
-scan.add_interface('ros', topic='/scan')
+scan.add_interface('ros', topic='/base_scan')
 
 # Keyboard control
 keyboard = Keyboard()
