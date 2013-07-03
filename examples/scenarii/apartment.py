@@ -3,7 +3,8 @@ from morse.builder import *
 # A PR2 robot to the scene
 james = BasePR2()
 james.add_interface('ros')
-james.translate(x=0, y=1, z=0.0)
+james.translate(x=-0.652, y=2.47, z=0.0)
+james.rotate(z=-1.412)
 
 hans = Human()
 hans.translate(x=1.74, y=-4.5)
