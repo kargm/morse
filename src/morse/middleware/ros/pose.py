@@ -1,6 +1,7 @@
 import logging; logger = logging.getLogger("morse." + __name__)
 import roslib; roslib.load_manifest('geometry_msgs')
 from geometry_msgs.msg import PoseStamped, Vector3
+from nav_msgs.msg import Odometry
 from morse.middleware.ros import ROSPublisher, ROSPublisherTF, mathutils
 
 class PoseStampedPublisher(ROSPublisher):
@@ -23,6 +24,25 @@ class PoseStampedPublisher(ROSPublisher):
 
         self.publish(pose)
 
+class OdometryPublisher(ROSPublisher):
+    """ Publish the position and orientation as nav_msgs/Odometry. """
+    ros_class = Odometry
+    default_frame_id = '/map'
+
+    def default(self, ci='unused'):
+        pose = Odometry()
+        pose.header = self.get_ros_header()
+
+        pose.pose.pose.position.x = self.data['x']
+        pose.pose.pose.position.y = self.data['y']
+        pose.pose.pose.position.z = self.data['z']
+
+        euler = mathutils.Euler((self.data['roll'],
+                                 self.data['pitch'],
+                                 self.data['yaw']))
+        pose.pose.pose.orientation = euler.to_quaternion()
+
+        self.publish(pose)
 
 class TFPublisher(ROSPublisherTF):
     """ Publish the transformation between
