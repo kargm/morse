@@ -19,7 +19,7 @@ semantic_camera = SemanticCamera()
 semantic_camera.translate(x=0.086, y=0, z=1.265)
 james.append(semantic_camera)
 #semantic_camera.add_interface('ros', ['morse.middleware.ros_mw.ROSClass', 'post_lisp_code', 'morse/middleware/ros/semantic_camera'])
-semantic_camera.add_interface('ros')
+semantic_camera.add_stream('ros', 'morse.middleware.ros.semantic_camera.SemanticCameraPublisherLisp')
 
 motion = MotionXYW()
 james.append(motion)
