@@ -7,11 +7,13 @@ james.translate(x=-0.652, y=2.47, z=0.0)
 james.rotate(z=-1.412)
 
 hans = Human()
+hans.name = 'Human'
 hans.translate(x=1.74, y=-4.5)
 
 human_pose = Pose()
+human_pose.name = 'Pose'
 hans.append(human_pose)
-human_pose.add_interface('ros')
+human_pose.add_stream('ros', 'morse.middleware.ros.pose.OdometryPublisher')
 
 semantic_camera = SemanticCamera()
 semantic_camera.translate(x=0.086, y=0, z=1.265)
