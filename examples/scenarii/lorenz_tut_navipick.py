@@ -63,5 +63,5 @@ humans_pose.configure_mw('ros')
 # destination_interferer.configure_mw('ros')
 
 # Set scenario
-env = Environment('lorenz/navipick')
+env = Environment('tutorials/navipick')
 env.aim_camera([1.0470, 0, 0.7854])
