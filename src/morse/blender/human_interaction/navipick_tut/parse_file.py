@@ -1,8 +1,8 @@
-from bge import logic
+from morse.core import blenderapi
 import sys
 import os
 
-scene = logic.getCurrentScene()
+scene = blenderapi.scene()
 scriptHolder = scene.objects['Tut_Script_Holder']
 
 language = scriptHolder['Language']
