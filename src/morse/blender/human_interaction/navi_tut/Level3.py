@@ -1,9 +1,9 @@
-from bge import logic
+from morse.core import blenderapi
 
 #co = logic.getCurrentController()
 #collision = co.sensors['Collision']
-objects = logic.getCurrentScene().objects
-human = objects['Human']
+objects = blenderapi.scene().objects
+human = objects['POS_EMPTY']
 
 
 def place(): 
