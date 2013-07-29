@@ -10,7 +10,7 @@ language = scriptHolder['Language']
 # get the path once
 for dir in sys.path:
     if os.path.exists(os.path.join(dir, "morse/blender/main.py")):
-        path = os.path.join(dir, 'morse/blender/human_interaction/human_tut/data/' + language + '/')
+        path = os.path.join(dir, 'morse/blender/human_interaction/navipick_tut/data/' + language + '/')
 
 def read_file():
     level = scriptHolder['Level']
