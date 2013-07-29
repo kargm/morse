@@ -1,0 +1,8 @@
+You can control the head of your avatar 
+and also the camera with the movement of the mouse. 
+
+The distance between your avatar and 
+the camera can be changed by using 
+the mouse wheel.
+
+Please try each of the functions once!

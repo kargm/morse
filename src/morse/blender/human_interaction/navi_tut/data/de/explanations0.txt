@@ -1,0 +1,9 @@
+Wilkommen!
+Dieses Tutorial soll Ihnen die Steuerung
+eines Menschen an diesem Simulator
+näher bringen.
+
+Dazu werden wir Sie zunächst in Grund-
+zügen mit der Steuerung vertraut machen,
+bevor es zu etwas komplexeren Bewegungs-
+aufgaben geht.

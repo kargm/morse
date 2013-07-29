@@ -1,0 +1,16 @@
+Well done!
+Now you can start moving your avatar around:
+
+For moving forward press <W> key.
+You can move sideways with the keys <A> and <D>. 
+By pressing the key <S> you move your avatar 
+towards the camera.
+Please notice that the movement direction 
+is dependent on the orientation of the camera 
+and not of the avatar itself. 
+Therefore it is convenient to use the mouse
+for rotating your avatar during movement.
+
+Please go through the doorframe now.
+
+
