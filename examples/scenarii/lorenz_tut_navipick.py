@@ -6,13 +6,13 @@ human = Human()
 human.translate(x=-1.35, y=-2.6, z=0.0)
 human.rotate(z=7.91)
 
-humans_pose = Sensor('pose')
+humans_pose = Pose()
 humans_pose.name = 'pose_subject'
 humans_pose.frequency(10.0)
 human.append(humans_pose)
 
 # Keyboard control
-keyboard = Actuator('keyboard')
+keyboard = Keyboard()
 keyboard.name = 'keyboard_control'
 human.append(keyboard)
 
