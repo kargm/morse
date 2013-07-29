@@ -1,0 +1,14 @@
+Your next task is to put the cup into the cupboard. 
+
+Press <X> to change your view to the 
+first-person perspective.
+You can change it back to the third-person perspective
+by pressing the key <X> again.
+
+For picking up objects, opening doors and 
+drawers as well as operating switches you  
+have to be in the first-person mode.
+
+With the third-person perspective you have
+a better overview of the environment of your 
+avatar. It is recommended for navigation tasks.

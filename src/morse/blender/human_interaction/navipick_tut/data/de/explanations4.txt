@@ -1,0 +1,8 @@
+Herzlichen Glückwunsch!
+Sie haben den ersten Teil des
+Tutorials erfolgreich abgeschlossen.
+
+Um zum nächsten Abschnitt zu
+gelangen, drücken Sie nun
+
+<STRG> + <ALT> + <N>

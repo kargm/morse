@@ -1,0 +1,8 @@
+Mit der Maus Bewegen Sie den Kopf
+des Avatars und damit die Kamera.
+
+Mit dem Mausrad können Sie jederzeit 
+den Abstand zwischen Kamera und Avatar
+verändern.
+
+Versuchen Sie es doch einmal!
