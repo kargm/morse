@@ -1,8 +1,8 @@
 from bge import logic
 
-co = logic.getCurrentController()
+co = blenderapi.controller()
 collision = co.sensors['Collision']
-objects = logic.getCurrentScene().objects
+objects = blenderapi.scene().objects
 human = objects['POS_EMPTY']
 
 def place(): 
