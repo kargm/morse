@@ -1,0 +1,8 @@
+Congratulations!
+
+You accomplished the first part 
+of the tutorial successfully. 
+
+To get to the next part please press
+
+<STRG> + <ALT> + <N>

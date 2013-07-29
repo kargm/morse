@@ -1,0 +1,11 @@
+Welcome!
+
+This tutorial will help you to 
+practice controlling an avatar 
+in this simulator. 
+
+In the first place you will learn the basic 
+control for moving your avatar. 
+
+Afterwards there will be more 
+complex motion tasks you have to accomplish.

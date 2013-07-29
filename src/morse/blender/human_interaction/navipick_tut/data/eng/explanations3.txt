@@ -1,0 +1,12 @@
+Good job!
+
+As you can see, the first doorframe 
+(your avatar just passed) disappeared 
+and simultaneously a second doorframe just showed up.
+
+Now navigate your avatar through all appearing 
+doorframes one after the other.
+
+If you want your avatar to move faster
+you can press the <SHIFT> key in addition to
+the movement keys presented previously. 
