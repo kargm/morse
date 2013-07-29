@@ -1,0 +1,16 @@
+To pick up something, you have to move your
+avatar close to the object and move the crosshairs
+above it.
+
+An open hand and the name of the object appears. 
+
+If this is not the case the 
+object is out of reach. 
+
+Press the <left mouse button> to 
+pick up the obejct. If the object is on the floor 
+the avatar will automatically bend down.
+Note that it is only possible
+to carry one object at a time. 
+
+Now you can pick up the yellow cup from the table!

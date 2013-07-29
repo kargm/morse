@@ -1,0 +1,9 @@
+Auf dem Boden befindet sich ein Gewichts-
+sensor (schwarzes Viereck). 
+Diesen müssen Sie permanent aktivieren
+(Rand beginnt zu leuchten), um den Weg
+in den dritten und letzten Abschnitt
+freizuschalten.
+
+Tipp: Sie können den Block in der Ecke
+des Raumes verschieben, indem Sie dagegen laufen.

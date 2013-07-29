@@ -1,0 +1,9 @@
+On the floor there is a weight-sensor
+(black square).
+To unlock the path to the third and
+last part of this tutorial, you have
+to permanently activate the sensor
+(activation is indicated by glowing stroke).
+
+Hint: you can move the Block in the corner
+of the room by walking against it.

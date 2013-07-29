@@ -1,0 +1,10 @@
+You can move the hand of the avatar
+by pressing the <middle mouse button> 
+while moving the mouse. 
+
+To open doors and drawers you have to
+move the crosshairs over them and press
+the <left mouse button>. (This also works
+while your avatar is holding an object.)
+
+Open the yellow cupboard door now. 
