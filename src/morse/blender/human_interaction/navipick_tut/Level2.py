@@ -4,7 +4,7 @@ from morse.core import blenderapi
 #collision = co.sensors['Collision']
 objects = blenderapi.scene().objects
 human = objects['POS_EMPTY']
-cube = objects['Cube']
+cube = objects['CubeSelect']
 
 def place(): 
     human.worldPosition = (40, 0, 0)
