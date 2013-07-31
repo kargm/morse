@@ -3,6 +3,7 @@ from morse.builder import *
 # Append humans to the scene
 # Human to be controlled by subject (Human)
 human = Human()
+human.name = 'Human'
 human.translate(x=-1.35, y=-2.6, z=0.0)
 human.rotate(z=7.91)
 
