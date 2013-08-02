@@ -3,7 +3,7 @@ import sys
 import os
 
 scene = blenderapi.scene()
-scriptHolder = scene.objects['Tut_Script_Holder']
+scriptHolder = scene.objects['TUT_Script_Holder']
 
 language = scriptHolder['Language']
 
