@@ -3,7 +3,7 @@ from morse.core import blenderapi
 objects = blenderapi.scene().objects
 print("O: %s"%objects)
 human = objects['POS_EMPTY']
-cube = objects['CubeSelect']
+cube = objects['Cube']
 
 def place(): 
     human.worldPosition = (40, 0, 0)
