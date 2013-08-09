@@ -32,7 +32,7 @@ def write():
         str_len = len(str)
         blf.position(font_id, (width * 0.05), linePosition, 0)
         blf.enable(font_id, blf.SHADOW)
-        blf.shadow(font_id, 0, 1.0, 0.2, 0.0, 1.0)
+        blf.shadow(font_id, 0, 0.9, 0.9, 0.9, 0.9)
         blf.draw(font_id,str)
         linePosition -= height * 0.05
 
