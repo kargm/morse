@@ -2,7 +2,7 @@ from morse.core import blenderapi
 
 objects = blenderapi.scene().objects
 print("O: %s"%objects)
-human = objects['POS_EMPTY']
+human = objects['Human']
 cube = objects['Cube']
 
 def place(): 
