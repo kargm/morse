@@ -56,3 +56,45 @@ class SemanticCameraPublisherLisp(ROSPublisherTF):
 
         string.data += ")"
         self.publish(string)
+
+class SemanticCameraPublisherLisp2(ROSPublisherTF):
+    """ Publish the data of the semantic camera as a ROS String message,
+    that contains a lisp-list (each field are separated by a space).
+
+    This function was designed for the use with CRAM and the Adapto group.
+    """
+    ros_class = String
+
+    def default(self, ci='unused'):
+        string = String()
+        string.data = "("
+        for obj in self.data['visible_objects']:
+            # if object has no description, set to nil
+            if obj['description'] == '':
+                description = 'nil'
+            else:
+                description = obj['description']
+            # if object has no type, set to entity
+            if obj['type'] == '':
+                objtype = 'entity'
+            else:
+                objtype = obj['type']
+
+            # send tf-frame for every object
+            self.sendTransform(obj['position'], obj['orientation'], \
+                               rospy.Time.now(), str(obj['name']), "/map")
+
+            # Build string from name, description, location and orientation in the global world frame
+            string.data += "(:name " + str(obj['name']) + \
+                           " :type " + objtype + \
+                           " :description " + description + \
+                           " :pos-x " + str(obj['position'].x) + \
+                           " :pos-y " + str(obj['position'].y) + \
+                           " :pos-z " + str(obj['position'].z) + \
+                           " :ori-x " + str(obj['orientation'].x) + \
+                           " :ori-y " + str(obj['orientation'].y) + \
+                           " :ori-z " + str(obj['orientation'].z) + \
+                           " :ori-w " + str(obj['orientation'].w) + ")"
+
+        string.data += ")"
+        self.publish(string)
