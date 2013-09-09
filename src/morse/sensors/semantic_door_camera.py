@@ -120,7 +120,7 @@ class SemanticDoorCamera(morse.sensors.camera.Camera):
                             'description': obj.get('Description', ''),
                             'hinge': obj.get('Door', ''),
                             'open': obj.get('Open', '')}
-                self.local_data['visible_objects'].append(obj_dict)
+                self.local_data['visible_doors'].append(obj_dict)
 
         logger.debug("Visible doors: %s" % self.local_data['visible_doors'])
 
