@@ -8,6 +8,11 @@ def active_objects():
     """
     return blenderapi.persistantstorage().passiveObjectsDict.keys()
 
+def doors():
+    """ Returns all doors in current scene, ie objects that have a 'Door' property.
+    """
+    return blenderapi.persistantstorage().doorsDict.keys()
+
 def graspable_objects():
     """ Returns all objects in current scene that have the
     'Graspable' property set to True, amongst active objects.

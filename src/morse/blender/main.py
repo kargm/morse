@@ -120,6 +120,9 @@ def create_dictionaries ():
     # 'Object' property) objects in the scene.
     persistantstorage.passiveObjectsDict = {}
 
+    # Create a dictionary with doors in the scene
+    persistantstorage.doorsDict = {}
+
     # Create a dictionary with the modifiers
     persistantstorage.modifierDict = {}
 
@@ -171,6 +174,26 @@ def create_dictionaries ():
 
     if not persistantstorage.passiveObjectsDict:
         logger.info("No passive objects in the scene.")
+
+    # Get list of doors in the scena
+
+    # These objects have a 'Door' property defining the side where the doors hinge is
+    # (plus a few other optional properties).
+    for obj in scene.objects:
+        # Check if the object has a 'Door' property
+        if 'Door' in obj:
+            details = {
+                 'label': obj['Label'] if 'Label' in obj else str(obj),
+                 'hinge': obj['Door'],
+                 'description': obj['Description'] if 'Description' in obj else "",
+                 'open': obj['Open'] if 'Open' in obj else False
+                }
+            persistantstorage.doorsDict[obj] = details
+            logger.info("Added {name} as a door with open = {open}".format(
+                    name = details['label'],
+                    open = details['open']))
+    if not persistantstorage.doorsDict:
+        logger.info("No doors found in the scene.")
 
     # Get the robots
     for obj in scene.objects:
