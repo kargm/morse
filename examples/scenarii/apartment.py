@@ -17,6 +17,7 @@ human_pose.add_stream('ros', 'morse.middleware.ros.pose.OdometryPublisher')
 
 semantic_camera = SemanticCamera()
 semantic_camera.translate(x=0.086, y=0, z=1.265)
+semantic_camera.properties(noocclusion = True)
 james.append(semantic_camera)
 #semantic_camera.add_interface('ros', ['morse.middleware.ros_mw.ROSClass', 'post_lisp_code', 'morse/middleware/ros/semantic_camera'])
 semantic_camera.add_stream('ros', 'morse.middleware.ros.semantic_camera.SemanticCameraPublisherLisp')
