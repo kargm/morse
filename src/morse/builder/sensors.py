@@ -382,6 +382,13 @@ class SemanticCamera(VideoCamera):
                              "semantic_camera")
         self.properties(cam_width = 512, cam_height = 512, Vertical_Flip = False)
 
+class SemanticDoorCamera(VideoCamera):
+    def __init__(self, name=None):
+        VideoCamera.__init__(self, name, \
+                             "morse.sensors.semantic_door_camera.SemanticDoorCamera",\
+                             "semantic_door_camera")
+        self.properties(cam_width = 512, cam_height = 512, Vertical_Flip = False)
+
 class Velodyne(LaserSensorWithArc):
     def __init__(self, name=None):
         LaserSensorWithArc.__init__(self, name,
