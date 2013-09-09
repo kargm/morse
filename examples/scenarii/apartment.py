@@ -26,6 +26,7 @@ semantic_door_cam = SemanticDoorCamera()
 semantic_door_cam.translate(x=0.086, y=0, z=1.265)
 semantic_door_cam.properties(noocclusion = True)
 james.append(semantic_door_cam)
+semantic_door_cam.add_stream('ros', 'morse.middleware.ros.semantic_door_camera.SemanticDoorCameraPublisherLisp')
 
 motion = MotionXYW()
 james.append(motion)
