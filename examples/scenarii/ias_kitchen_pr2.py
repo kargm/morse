@@ -25,13 +25,13 @@ motion.add_interface('ros', topic='/cmd_vel')
 # An odometry sensor to get odometry information
 odometry = Odometry()
 james.append(odometry)
-# odometry.add_interface('ros', topic="/odom")
-human_pose.add_stream('ros', 'morse.middleware.ros.pose.OdometryPublisher')
+odometry.add_interface('ros', topic="/odom")
+
 
 robot_pose = Pose()
 robot_pose.name = 'robot_pose'
 james.append(robot_pose)
-robot_pose.add_interface('ros')
+robot_pose.add_stream('ros', 'morse.middleware.ros.pose.OdometryPublisher')
 
 scan = Hokuyo()
 scan.translate(x=0.275, z=0.252)
