@@ -3,13 +3,13 @@ from morse.builder import *
 # A PR2 robot to the scene
 james = BasePR2()
 james.add_interface('ros')
-james.translate(x=-3, y=2.7, z=0.0)
+james.translate(x=1.343, y=-1.5, z=0.0)
 
 hans = Human()
-
 human_pose = Pose()
 hans.append(human_pose)
 human_pose.add_interface('ros')
+hans.translate(x=0.223, y=-2.417, z=0.0)
 
 semantic_camera = SemanticCamera()
 semantic_camera.translate(x=0.086, y=0, z=1.265)
