@@ -3,13 +3,14 @@ from morse.builder import *
 # A PR2 robot to the scene
 james = BasePR2()
 james.add_interface('ros')
-james.translate(x=-3, y=2.7, z=0.0)
+james.translate(x=0.11, y=-2.04, z=0.0)
 
 hans = Human()
 
 human_pose = Pose()
 hans.append(human_pose)
 human_pose.add_interface('ros')
+hans.translate(x=0.1, y=0.1, z=0.0)
 
 semantic_camera = SemanticCamera()
 semantic_camera.translate(x=0.086, y=0, z=1.265)
@@ -48,6 +49,12 @@ scan.add_interface('ros', topic='/base_scan')
 keyboard = Keyboard()
 keyboard.name = 'keyboard_control'
 james.append(keyboard)
+
+# Add passive objects
+cornflakes = PassiveObject('props/kitchen_objects.blend', 'Cornflakes')
+cornflakes.setgraspable()
+cornflakes.translate(x=1.37, y=0.5, z=0.9)
+cornflakes.properties(Type='cereals')
 
 # Set scenario
 env = Environment('adapto_kitchens/sebastian_kitchen')
