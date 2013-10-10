@@ -29,14 +29,13 @@ odometry.add_interface('ros', topic="/odom")
 
 l_gripper = Gripper()
 l_gripper.translate(x=0.9918, y=-0.00246, z=0.742)
+#l_gripper.properties(Distance = 1)
 james.l_arm.append(l_gripper)
 l_gripper.add_overlay('ros', 'morse.middleware.ros.overlays.gripper.Gripper')
 
 r_gripper = Gripper()
 r_gripper.translate(x=0.9918, y=0.00246, z=0.742)
 james.r_arm.append(r_gripper)
-
-
 
 robot_pose = Pose()
 robot_pose.name = 'robot_pose'
@@ -64,7 +63,7 @@ cornflakes = PassiveObject('props/kitchen_objects.blend', 'Cornflakes')
 cornflakes.setgraspable()
 cornflakes.translate(x=1.37, y=0.5, z=0.9)
 cornflakes.properties(Type='cereals')
-
+#~ 
 fork = PassiveObject('props/kitchen_objects.blend', 'Fork')
 fork.setgraspable()
 fork.translate(x=1.38, y=0.5, z=0.86)

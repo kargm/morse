@@ -7,7 +7,7 @@ from morse.core import status
 
 from morse.middleware.ros.helpers import ros_add_to_syspath
 ros_add_to_syspath("morse_msgs")
-from move_base_msgs.msg import *
+from morse_msgs.msg import *
 
 class Gripper(MorseOverlay):
 
