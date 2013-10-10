@@ -13,6 +13,11 @@ def doors():
     """
     return blenderapi.persistantstorage().doorsDict.keys()
 
+def drawers():
+    """ Returns all drawers in current scene, ie objects that have a 'Drawer' property.
+    """
+    return blenderapi.persistantstorage().drawersDict.keys()
+
 def graspable_objects():
     """ Returns all objects in current scene that have the
     'Graspable' property set to True, amongst active objects.
