@@ -238,5 +238,10 @@ class Sound(ActuatorCreator):
         actuator.sound = bpymorse.get_last_sound()
         actuator.use_sound_3d = True
         actuator.distance_3d_max = 10000.0
-
+        
+class DoorOpener(ActuatorCreator):
+    def __init__(self, name=None):
+        ActuatorCreator.__init__(self, name, \
+                                 "morse.actuators.open_doors.DoorOpener",\
+                                 "open_doors")
 # end morse.builder.actuators
