@@ -15,20 +15,41 @@ human_pose.name = 'Pose'
 hans.append(human_pose)
 human_pose.add_stream('ros', 'morse.middleware.ros.pose.OdometryPublisher')
 
-semantic_camera = SemanticCamera()
-semantic_camera.translate(x=0.086, y=0, z=1.265)
-semantic_camera.properties(noocclusion = True)
-semantic_camera.properties(cam_focal = 15)
-james.append(semantic_camera)
-#semantic_camera.add_interface('ros', ['morse.middleware.ros_mw.ROSClass', 'post_lisp_code', 'morse/middleware/ros/semantic_camera'])
-semantic_camera.add_stream('ros', 'morse.middleware.ros.semantic_camera.SemanticCameraPublisherLisp')
+#semantic_camera = SemanticCamera()
+#semantic_camera.translate(x=0.086, y=0, z=1.265)
+#semantic_camera.properties(noocclusion = True)
+#semantic_camera.properties(cam_focal = 15)
+#james.append(semantic_camera)
+##semantic_camera.add_interface('ros', ['morse.middleware.ros_mw.ROSClass', 'post_lisp_code', 'morse/middleware/ros/semantic_camera'])
+#semantic_camera.add_stream('ros', 'morse.middleware.ros.semantic_camera.SemanticCameraPublisherLisp')
 
-semantic_door_cam = SemanticDoorCamera()
-semantic_door_cam.translate(x=0.086, y=0, z=1.265)
-semantic_door_cam.properties(noocclusion = True)
-semantic_door_cam.properties(cam_focal = 15)
-james.append(semantic_door_cam)
-semantic_door_cam.add_stream('ros', 'morse.middleware.ros.semantic_door_camera.SemanticDoorCameraPublisherLisp')
+#semantic_door_cam = SemanticDoorCamera()
+#semantic_door_cam.translate(x=0.086, y=0, z=1.265)
+#semantic_door_cam.properties(noocclusion = True)
+#semantic_door_cam.properties(cam_focal = 15)
+#james.append(semantic_door_cam)
+#semantic_door_cam.add_stream('ros', 'morse.middleware.ros.semantic_door_camera.SemanticDoorCameraPublisherLisp')
+
+semantic_objects_cam = SemanticCameraObjects();
+semantic_objects_cam.translate(x=0.086, y=0, z=1.265)
+semantic_objects_cam.properties(noocclusion = True)
+semantic_objects_cam.properties(cam_focal = 15)
+james.append(semantic_objects_cam)
+semantic_objects_cam.add_stream('ros', 'morse.middleware.ros.semantic_camera.SemanticCameraPublisherLisp2')
+
+semantic_doors_cam = SemanticCameraDoors();
+semantic_doors_cam.translate(x=0.086, y=0, z=1.265)
+semantic_doors_cam.properties(noocclusion = True)
+semantic_doors_cam.properties(cam_focal = 15)
+james.append(semantic_doors_cam)
+semantic_doors_cam.add_stream('ros', 'morse.middleware.ros.semantic_door_camera.SemanticDoorCameraPublisherLisp')
+
+semantic_drawers_cam = SemanticCameraDrawers();
+semantic_drawers_cam.translate(x=0.086, y=0, z=1.265)
+semantic_drawers_cam.properties(noocclusion = True)
+semantic_drawers_cam.properties(cam_focal = 15)
+james.append(semantic_drawers_cam)
+semantic_drawers_cam.add_stream('ros', 'morse.middleware.ros.semantic_door_camera.SemanticDrawerCameraPublisherLisp')
 
 motion = MotionXYW()
 james.append(motion)
@@ -54,6 +75,11 @@ scan.properties(scan_window = 180.0)
 scan.create_laser_arc()
 
 scan.add_interface('ros', topic='/base_scan')
+
+# add "actuators" to open doors and drawers
+door_control = DoorOpener()
+james.append(door_control)
+door_control.add_interface('ros')
 
 # Keyboard control
 keyboard = Keyboard()
@@ -103,6 +129,5 @@ nutella.rotate(z=1.45)
 # Set scenario
 env = Environment('apartment/apartment')
 env.aim_camera([1.0470, 0, 0.7854])
-
 
 
