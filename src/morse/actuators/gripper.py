@@ -176,10 +176,14 @@ class Gripper(morse.core.actuator.Actuator):
 
             # Execute the open grip animation:
             self._animation = 'open'
+            release_status = "Release object: '%s'"%self._near_object
+            self.completed(status.SUCCESS, release_status)
             return True
 
         else:
             logger.debug("No object currently being held: nothing to release.")
+            release_status = "No object currently being held: nothing to release."
+            self.completed(status.FAILED, release_status)
             return False
 
     def default_action(self):
