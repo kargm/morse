@@ -8,7 +8,8 @@ james.rotate(z=-5.776)
 
 hans = Human()
 hans.name = 'Human'
-hans.translate(x=1.74, y=-4.5)
+hans.translate(x=0.63, y=0.9)
+hans.rotate(z=-3.0)
 
 human_pose = Pose()
 human_pose.name = 'Pose'
@@ -55,6 +56,20 @@ motion = MotionXYW()
 james.append(motion)
 motion.add_interface('ros', topic='/cmd_vel')
 
+l_gripper = Gripper()
+l_gripper.translate(x=0.9918, y=-0.00246, z=0.742)
+l_gripper.properties(Distance = 2)
+l_gripper.properties(Angle = 60)
+james.l_arm.append(l_gripper)
+l_gripper.add_overlay('ros', 'morse.middleware.ros.overlays.gripper.Gripper')
+
+r_gripper = Gripper()
+r_gripper.translate(x=0.9918, y=0.00246, z=0.742)
+james.r_arm.append(r_gripper)
+r_gripper.properties(Distance = 2)
+r_gripper.properties(Angle = 60)
+r_gripper.add_overlay('ros', 'morse.middleware.ros.overlays.gripper.Gripper')
+
 # An odometry sensor to get odometry information
 odometry = Odometry()
 james.append(odometry)
@@ -77,9 +92,9 @@ scan.create_laser_arc()
 scan.add_interface('ros', topic='/base_scan')
 
 # add "actuators" to open doors and drawers
-door_control = DoorOpener()
-james.append(door_control)
-door_control.add_interface('ros')
+#~ door_control = DoorOpener()
+#~ james.append(door_control)
+#~ door_control.add_interface('ros')
 
 # Keyboard control
 keyboard = Keyboard()
@@ -89,22 +104,27 @@ james.append(keyboard)
 # Add passive objects
 cornflakes = PassiveObject('props/kitchen_objects.blend', 'Cornflakes')
 cornflakes.setgraspable()
-cornflakes.translate(x=0.919, y=2.7, z=1.10)
+cornflakes.translate(x=-1.6, y=2.7, z=1.06)
 
-fork = PassiveObject('props/kitchen_objects.blend', 'Fork')
-fork.setgraspable()
-fork.translate(x=1.41, y=2.28, z=0.956)
-fork.rotate(z=-0.238)
+spoon = PassiveObject('props/kitchen_objects.blend', 'Spoon')
+spoon.setgraspable()
+spoon.translate(x=1.41, y=2.28, z=0.985)
+spoon.rotate(z=-0.238)
 
-knife = PassiveObject('props/kitchen_objects.blend', 'Knife')
-knife.setgraspable()
-knife.translate(x=0.894, y=2.301, z=0.956)
-knife.rotate(z=1.45)
+#~ fork = PassiveObject('props/kitchen_objects.blend', 'Fork')
+#~ fork.setgraspable()
+#~ fork.translate(x=1.41, y=2.28, z=0.956)
+#~ fork.rotate(z=-0.238)
 
-plate = PassiveObject('props/kitchen_objects.blend', 'Plate')
-plate.setgraspable()
-plate.translate(x=1.16, y=2.34, z=0.946)
-plate.rotate(z=1.45)
+#~ knife = PassiveObject('props/kitchen_objects.blend', 'Knife')
+#~ knife.setgraspable()
+#~ knife.translate(x=0.894, y=2.301, z=0.956)
+#~ knife.rotate(z=1.45)
+#~
+#~ plate = PassiveObject('props/kitchen_objects.blend', 'Plate')
+#~ plate.setgraspable()
+#~ plate.translate(x=1.16, y=2.34, z=0.946)
+#~ plate.rotate(z=1.45)
 
 #bread = PassiveObject('props/kitchen_objects.blend', 'Bread')
 #bread.setgraspable()
@@ -113,23 +133,21 @@ plate.rotate(z=1.45)
 
 bowl = PassiveObject('props/kitchen_objects.blend', 'Bowl')
 bowl.setgraspable()
-bowl.translate(x=1.383, y=2.651, z=0.92)
+bowl.translate(x=1.383, y=2.651, z=0.98) #z=0.92)
 bowl.rotate(z=1.45)
 
-jam = PassiveObject('props/kitchen_objects.blend', 'Jam')
-jam.setgraspable()
-jam.translate(x=0.619, y=2.4, z=0.96)
-jam.rotate(z=1.45)
-
-nutella = PassiveObject('props/kitchen_objects.blend', 'Nutella')
-nutella.setgraspable()
-nutella.translate(x=0.704, y=2.52, z=0.902)
-nutella.rotate(z=1.45)
+#~ jam = PassiveObject('props/kitchen_objects.blend', 'Jam')
+#~ jam.setgraspable()
+#~ jam.translate(x=0.619, y=2.4, z=0.96)
+#~ jam.rotate(z=1.45)
+#~
+#~ nutella = PassiveObject('props/kitchen_objects.blend', 'Nutella')
+#~ nutella.setgraspable()
+#~ nutella.translate(x=0.704, y=2.52, z=0.902)
+#~ nutella.rotate(z=1.45)
 
 # Set scenario
 env = Environment('apartment/apartment')
 env.aim_camera([1.0470, 0, 0.7854])
-
-
 
 
