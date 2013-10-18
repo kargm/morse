@@ -131,7 +131,7 @@ class Gripper(morse.core.actuator.Actuator):
                 # Execute the close grip animation:
                 self._animation = 'close'
                 grasp_status = "Grabbed object: '%s'"%self._near_object
-                self.completed(status.SUCCESS, grasp_status)	
+                self.completed(status.SUCCESS, grasp_status)
                 return self._grabbed_object.name
 
             else:
