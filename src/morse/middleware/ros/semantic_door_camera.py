@@ -29,7 +29,7 @@ class SemanticDoorCameraPublisherLisp(ROSPublisherTF):
     def default(self, ci='unused'):
         string = String()
         string.data = "("
-        for obj in self.data['visible_doors']:
+        for obj in self.data['visible_objects']:
             # if object has no description, set to '-'
             if obj['description'] == '':
                 description = '-'
@@ -40,6 +40,32 @@ class SemanticDoorCameraPublisherLisp(ROSPublisherTF):
             string.data += "(" + str(obj['name']) + " " + description + " " + \
                            str(obj['hinge']) + " " + \
                            str(obj['open']) + ")"
+
+        string.data += ")"
+        self.publish(string)
+
+class SemanticDrawerCameraPublisherLisp(ROSPublisherTF):
+    """ Publish the data of the semantic camera as a ROS String message,
+    that contains a lisp-list (each field are separated by a space).
+
+    This function was designed for the use with CRAM and the Adapto group.
+    """
+    ros_class = String
+
+    def default(self, ci='unused'):
+        string = String()
+        string.data = "("
+        for obj in self.data['visible_objects']:
+            # if object has no description, set to '-'
+            if obj['description'] == '':
+                description = '-'
+            else:
+                description = obj['description']
+
+            # Build string from name, description, location and orientation in the global world frame
+            string.data += "(" + str(obj['name']) + " " + description + " " + \
+                           str(obj['open']) + ")"
+
 
         string.data += ")"
         self.publish(string)
