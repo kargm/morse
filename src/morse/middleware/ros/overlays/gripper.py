@@ -16,7 +16,11 @@ class Gripper(MorseOverlay):
         super(self.__class__,self).__init__(overlaid_object)
 
     def gripper_action_result(self, result):
-        return (result)
+        state, value = result
+
+        logger.info("Gripper action completed! got value " + str(value))
+
+        return (state, GripperResult())
 
     @interruptible
     @ros_action(type = GripperAction)
