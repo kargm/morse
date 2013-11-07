@@ -1,10 +1,25 @@
 import logging; logger = logging.getLogger("morse." + __name__)
 import morse.core.actuator
-from morse.core import blenderapi
+from morse.core import status, blenderapi
 from morse.helpers import passive_objects
 from morse.helpers.components import add_data
+from morse.core.services import service, async_service, interruptible
+
 
 class DoorOpener(morse.core.actuator.Actuator):
+    """
+    Actuator for opening doors by ``remote control''. I provides services
+    open and close.
+
+    .. note::
+
+        This actuator only opens the door without playing any animation. This
+        could easily be added when a blender animation is set.
+    """
+
+    _name = "Gripper"
+    _short_desc = "Instruct the robot to move towards a given target"
+
     add_data('door', None, 'string', "Name of door to be opened or closed")
     add_data('goal_state',True,'bool', "Goal state: true = open, false = closed")
 
@@ -32,37 +47,49 @@ class DoorOpener(morse.core.actuator.Actuator):
             print("label --- local_data[door]: %s -- %s"%( blenderapi.persistantstorage().doorsDict[obj]['label'], self.local_data['door']))
             if blenderapi.persistantstorage().doorsDict[obj]['label'] == self.local_data['door']:
                 return obj
-            
+
+    @interruptible
+    @async_service
     def open(self):
         # identify door to open
         door = self.identify_object()
         print("[open] door is %s, type: %s"%(door, type(door)))
 
-        # open door if necessary
-        if not door['Open']:     # opens the door
-            if door['Door'].lower()=='right':
-                door.applyRotation((0, 0, 1.4), False)
-                # rotation around global Z-Axis - ~80 degrees
-            elif door['Door'].lower()=='left':
-                door.applyRotation((0, 0, -1.4), False)
-        door['Open'] = True
+        if door:
+            # open door if necessary
+            if not door['Open']:     # opens the door
+                if door['Door'].lower()=='right':
+                    door.applyRotation((0, 0, 1.4), False)
+                    # rotation around global Z-Axis - ~80 degrees
+                elif door['Door'].lower()=='left':
+                    door.applyRotation((0, 0, -1.4), False)
+            door['Open'] = True
+            open_status = "Opened door: '%s'"%self.local_data['door']
+            self.completed(status.SUCCESS, open_status)
+            return door.name
+        else:
+            open_status = "Did not find door: '%s'"%self.local_data['door']
+            self.completed(status.FAILED, open_status)
 
+    @interruptible
+    @async_service
     def close(self):
         # identify door to close
         door = self.identify_object()
 
-        # close door if necessary
-        if door['Open']:     # closes the door
-            if door['Door'].lower()=='right':
-                door.applyRotation((0, 0, -1.4), False)
-                # rotation around global Z-Axis - ~80 degrees
-            elif door['Door'].lower()=='left':
-                door.applyRotation((0, 0, 1.4), False)
-        door['Open'] = False
-
-    def default_action(self):
-        if self.local_data['goal_state']:
-            self.open()
+        if door:
+            # close door if necessary
+            if door['Open']:     # closes the door
+                if door['Door'].lower()=='right':
+                    door.applyRotation((0, 0, -1.4), False)
+                    # rotation around global Z-Axis - ~80 degrees
+                elif door['Door'].lower()=='left':
+                    door.applyRotation((0, 0, 1.4), False)
+            door['Open'] = False
+            close_status = "Closed door: '%s'"%self.local_data['door']
+            self.completed(status.SUCCESS, close_status)
+            return door.name
         else:
-            self.close()
+            close_status = "Did not find door: '%s'"%self.local_data['door']
+            self.completed(status.FAILED, close_status)
 
