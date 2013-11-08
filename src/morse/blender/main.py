@@ -123,6 +123,9 @@ def create_dictionaries ():
     # Create a dictionary with doors in the scene
     persistantstorage.doorsDict = {}
 
+    # Create a dictionary with drawers in the scene
+    persistantstorage.drawersDict = {}
+
     # Create a dictionary with the modifiers
     persistantstorage.modifierDict = {}
 
@@ -197,6 +200,21 @@ def create_dictionaries ():
                     open = details['open']))
     if not persistantstorage.doorsDict:
         logger.info("No doors found in the scene.")
+
+    # These objects have a 'Drawer' property .
+    for obj in scene.objects:
+        if 'Drawer' in obj:
+            details = {
+                 'label': obj['Label'] if 'Label' in obj else str(obj),
+                 'description': obj['Description'] if 'Description' in obj else "",
+                 'open': obj['Open'] if 'Open' in obj else False
+                }
+            persistantstorage.drawersDict[obj] = details
+            logger.info("Added {name} as a drawer with open = {open}".format(
+                    name = details['label'],
+                    open = details['open']))
+    if not persistantstorage.drawersDict:
+        logger.info("No drawers found in the scene.")
 
     # Get the robots
     for obj in scene.objects:
@@ -692,6 +710,14 @@ def init_supervision_services():
     except (AttributeError, NameError, KeyError):
         # Nothing to declare: skip to the next step.
         pass
+
+
+    ###
+    # Services can be imported *only* after persistantstorage.morse_services
+    # has been created. Else @service won't know where to register the RPC
+    # callbacks.
+    import morse.services.supervision_services
+    import morse.services.communication_services
 
     logger.log(ENDSECTION, "SUPERVISION SERVICES INITIALIZED")
     return True
