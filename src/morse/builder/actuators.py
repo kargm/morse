@@ -241,7 +241,10 @@ class Sound(ActuatorCreator):
         
 class DoorOpener(ActuatorCreator):
     def __init__(self, name=None):
-        ActuatorCreator.__init__(self, name, \
-                                 "morse.actuators.open_doors.DoorOpener",\
-                                 "open_doors")
+        Actuator.__init__(self, "open_doors")
+        self.name = name
+        self.properties(classpath = "morse.actuators.open_doors.DoorOpener")
+        #~ ActuatorCreator.__init__(self, name, \
+                                 #~ "morse.actuators.open_doors.DoorOpener",\
+                                 #~ "open_doors")
 # end morse.builder.actuators
