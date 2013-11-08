@@ -101,6 +101,11 @@ keyboard = Keyboard()
 keyboard.name = 'keyboard_control'
 james.append(keyboard)
 
+# Door opener
+door_opener = DoorOpener()
+james.append(door_opener)
+door_opener.add_overlay('ros', 'morse.middleware.ros.overlays.open_doors.DoorOpener')
+
 # Add passive objects
 cornflakes = PassiveObject('props/kitchen_objects.blend', 'Cornflakes')
 cornflakes.setgraspable()
