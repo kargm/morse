@@ -3,8 +3,10 @@ from morse.builder import *
 # A PR2 robot to the scene
 james = BasePR2()
 james.add_interface('ros')
+#~ james.translate(x=-2.7, y=0.35, z=0.0)
+james.rotate (z=3.14159265358)
 james.translate(x=-0.666, y=1.1464, z=0.0)
-james.rotate(z=-5.776)
+#~ james.rotate(z=-5.776)
 
 hans = Human()
 hans.name = 'Human'
@@ -33,7 +35,6 @@ human_pose.add_stream('ros', 'morse.middleware.ros.pose.OdometryPublisher')
 
 semantic_objects_cam = SemanticCameraObjects();
 semantic_objects_cam.translate(x=0.086, y=0, z=1.265)
-semantic_objects_cam.properties(noocclusion = True)
 semantic_objects_cam.properties(cam_focal = 15)
 james.append(semantic_objects_cam)
 semantic_objects_cam.add_stream('ros', 'morse.middleware.ros.semantic_camera.SemanticCameraPublisherLisp2')
@@ -43,14 +44,14 @@ semantic_doors_cam.translate(x=0.086, y=0, z=1.265)
 semantic_doors_cam.properties(noocclusion = True)
 semantic_doors_cam.properties(cam_focal = 15)
 james.append(semantic_doors_cam)
-semantic_doors_cam.add_stream('ros', 'morse.middleware.ros.semantic_door_camera.SemanticDoorCameraPublisherLisp')
+semantic_doors_cam.add_stream('ros', 'morse.middleware.ros.semantic_camera.SemanticCameraPublisherDoorsDrawersLisp')
 
 semantic_drawers_cam = SemanticCameraDrawers();
 semantic_drawers_cam.translate(x=0.086, y=0, z=1.265)
-semantic_drawers_cam.properties(noocclusion = True)
+#~ semantic_drawers_cam.properties(noocclusion = True)
 semantic_drawers_cam.properties(cam_focal = 15)
 james.append(semantic_drawers_cam)
-semantic_drawers_cam.add_stream('ros', 'morse.middleware.ros.semantic_door_camera.SemanticDrawerCameraPublisherLisp')
+semantic_drawers_cam.add_stream('ros', 'morse.middleware.ros.semantic_camera.SemanticCameraPublisherDoorsDrawersLisp')
 
 motion = MotionXYW()
 james.append(motion)
@@ -91,10 +92,6 @@ scan.create_laser_arc()
 
 scan.add_interface('ros', topic='/base_scan')
 
-# add "actuators" to open doors and drawers
-#~ door_control = DoorOpener()
-#~ james.append(door_control)
-#~ door_control.add_interface('ros')
 
 # Keyboard control
 keyboard = Keyboard()
@@ -105,6 +102,11 @@ james.append(keyboard)
 door_opener = DoorOpener()
 james.append(door_opener)
 door_opener.add_overlay('ros', 'morse.middleware.ros.overlays.open_doors.DoorOpener')
+
+# Drawer opener
+drawer_opener = DrawerOpener()
+james.append(drawer_opener)
+drawer_opener.add_overlay('ros', 'morse.middleware.ros.overlays.open_drawers.DrawerOpener')
 
 # Add passive objects
 cornflakes = PassiveObject('props/kitchen_objects.blend', 'Cornflakes')

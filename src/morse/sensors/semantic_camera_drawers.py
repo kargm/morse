@@ -49,7 +49,7 @@ class SemanticCameraDrawers(morse.sensors.semantic_camera_generic.SemanticCamera
 
     def get_obj_dict(self,obj):
         # Create dictionaries
-        return {'name': passive_objects.label(obj),
+        return {'name': obj.get('Label', ''),
                 'description': obj.get('Description', ''),
                 'open': obj.get('Open', '')}
 

@@ -17,34 +17,17 @@ class DoorOpener(morse.core.actuator.Actuator):
         could easily be added when a blender animation is set.
     """
 
-    _name = "Gripper"
-    _short_desc = "Instruct the robot to move towards a given target"
+    _name = "DoorOpener"
+    _short_desc = "Open doors by remote control"
 
     add_data('door', None, 'string', "Name of door to be opened or closed")
     add_data('goal_state',True,'bool', "Goal state: true = open, false = closed")
 
-    #scene= blenderapi.scene()
-    #objects = scene.objects
-
-#~ # load overlay_closed.tga and overlay_open.tga into the global dictionary
-#~ if not "open" in  logic.globalDict:
-    #~ TexName = "overlay_open.tga"
-    #~ filepath = logic.expandPath(os.path.join(os.environ["MORSE_ROOT"], "share","morse","data","props",TexName))
-    #~ logic.globalDict["open"] = loadtexture(filepath)
-#~
-#~ open_id = logic.globalDict.get("open")
-#~
-#~ if not "closed" in logic.globalDict:
-    #~ TexName = "overlay_closed.tga"
-    #~ filepath = os.path.join(os.environ["MORSE_ROOT"], "share","morse","data","props",TexName)
-    #~ logic.globalDict["closed"] = loadtexture(filepath)
-#~
-#~ closed_id = logic.globalDict.get("closed")
 
     def identify_object(self):
         for obj in passive_objects.doors():
-            print("OBJ is: %s, \nLabel is: %s"%(type(obj), type(blenderapi.persistantstorage().doorsDict[obj]['label'])))
-            print("label --- local_data[door]: %s -- %s"%( blenderapi.persistantstorage().doorsDict[obj]['label'], self.local_data['door']))
+            logger.info("OBJ is: %s, \nLabel is: %s"%(type(obj), type(blenderapi.persistantstorage().doorsDict[obj]['label'])))
+            logger.info("label --- local_data[door]: %s -- %s"%( blenderapi.persistantstorage().doorsDict[obj]['label'], self.local_data['door']))
             if blenderapi.persistantstorage().doorsDict[obj]['label'] == self.local_data['door']:
                 return obj
 
@@ -53,7 +36,6 @@ class DoorOpener(morse.core.actuator.Actuator):
     def open(self):
         # identify door to open
         door = self.identify_object()
-        print("[open] door is %s, type: %s"%(door, type(door)))
 
         if door:
             # open door if necessary
@@ -63,6 +45,10 @@ class DoorOpener(morse.core.actuator.Actuator):
                     # rotation around global Z-Axis - ~80 degrees
                 elif door['Door'].lower()=='left':
                     door.applyRotation((0, 0, -1.4), False)
+                elif door['Door'].lower()=='bottom-x':
+                    door.applyRotation((1.4, 0, 0), False)
+                elif door['Door'].lower()=='bottom-y':
+                    door.applyRotation((0, 1.4, 0), False)
             door['Open'] = True
             open_status = "Opened door: '%s'"%self.local_data['door']
             self.completed(status.SUCCESS, open_status)
@@ -85,6 +71,10 @@ class DoorOpener(morse.core.actuator.Actuator):
                     # rotation around global Z-Axis - ~80 degrees
                 elif door['Door'].lower()=='left':
                     door.applyRotation((0, 0, 1.4), False)
+                elif door['Door'].lower()=='bottom-x':
+                    door.applyRotation((-1.4, 0, 0), False)
+                elif door['Door'].lower()=='bottom-y':
+                    door.applyRotation((0, -1.4, 0), False)
             door['Open'] = False
             close_status = "Closed door: '%s'"%self.local_data['door']
             self.completed(status.SUCCESS, close_status)
@@ -92,4 +82,6 @@ class DoorOpener(morse.core.actuator.Actuator):
         else:
             close_status = "Did not find door: '%s'"%self.local_data['door']
             self.completed(status.FAILED, close_status)
+
+
 
