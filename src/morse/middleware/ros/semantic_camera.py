@@ -6,6 +6,9 @@ from std_msgs.msg import String
 from morse.middleware.ros import ROSPublisherTF
 from morse.middleware.socket_datastream import MorseEncoder
 
+
+#~ logger.setLevel(logging.DEBUG)
+
 class SemanticCameraPublisher(ROSPublisherTF):
     """ Publish the data of the semantic camera as JSON in a ROS String message.
     And send TF transform between '/map' and ``object.name``.
@@ -15,8 +18,8 @@ class SemanticCameraPublisher(ROSPublisherTF):
     def default(self, ci='unused'):
         for obj in self.data['visible_objects']:
             # send tf-frame for every object
-            self.sendTransform(obj['position'], obj['orientation'],
-                               self.get_time(), str(obj['name']), "/map")
+            self.sendTransform(obj['position'], obj['orientation'], \
+                               rospy.Time.now(), str(obj['name']), "/map")
         string = String()
         string.data = json.dumps(self.data['visible_objects'], cls=MorseEncoder)
         self.publish(string)
@@ -34,11 +37,15 @@ class SemanticCameraPublisherLisp(ROSPublisherTF):
         string = String()
         string.data = "("
         for obj in self.data['visible_objects']:
-            description = obj['description'] or '-'
+            # if object has no description, set to '-'
+            if obj['description'] == '':
+                description = '-'
+            else:
+                description = obj['description']
 
             # send tf-frame for every object
-            self.sendTransform(obj['position'], obj['orientation'],
-                               self.get_time(), str(obj['name']), "/map")
+            self.sendTransform(obj['position'], obj['orientation'], \
+                               rospy.Time.now(), str(obj['name']), "/map")
 
             # Build string from name, description, location and orientation in the global world frame
             string.data += "(" + str(obj['name']) + " " + description + " " + \
@@ -94,3 +101,30 @@ class SemanticCameraPublisherLisp2(ROSPublisherTF):
 
         string.data += ")"
         self.publish(string)
+
+class SemanticCameraPublisherDoorsDrawersLisp(ROSPublisherTF):
+    """ Publish the data of the semantic camera as a ROS String message,
+    that contains a lisp-list (each field are separated by a space).
+
+    This function was designed for the use with CRAM and the Adapto group.
+    """
+    ros_class = String
+
+    def default(self, ci='unused'):
+        string = String()
+        string.data = "("
+        for obj in self.data['visible_objects']:
+            # if object has no description, set to '-'
+            if obj['description'] == '':
+                description = '-'
+            else:
+                description = str(obj['description'])
+
+            # Build string from name, description, location and orientation in the global world frame
+            string.data += "(:name " + str(obj['name']) + \
+                           " :description " + description + \
+                           " :open-status " + str(obj['open']) + ")"
+
+        string.data += ")"
+        self.publish(string)
+
