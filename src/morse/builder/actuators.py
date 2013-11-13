@@ -248,3 +248,9 @@ class DoorOpener(ActuatorCreator):
                                  #~ "morse.actuators.open_doors.DoorOpener",\
                                  #~ "open_doors")
 # end morse.builder.actuators
+
+class DrawerOpener(ActuatorCreator):
+    def __init__(self, name=None):
+        Actuator.__init__(self, "open_drawers")
+        self.name = name
+        self.properties(classpath = "morse.actuators.open_drawers.DrawerOpener")
