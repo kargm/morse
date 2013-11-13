@@ -57,7 +57,8 @@ class SemanticCameraObjects(morse.sensors.semantic_camera_generic.SemanticCamera
 
 
     def get_obj_dict(self,obj):
-        return {'name': passive_objects.label(obj),
+        logger.debug("obj:" + str(type(obj)))
+        return {'name': obj.get('Label', ''), #passive_objects.label(obj),
                 'description': obj.get('Description', ''),
                 'type': obj.get('Type', ''),
                 'position': obj.worldPosition,

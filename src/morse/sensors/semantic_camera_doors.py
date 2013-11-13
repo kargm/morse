@@ -49,7 +49,7 @@ class SemanticCameraDoors(morse.sensors.semantic_camera_generic.SemanticCameraGe
 
     def get_obj_dict(self,obj):
         # Create dictionaries
-        return {'name': passive_objects.label(obj),
+        return {'name': obj.get('Label', ''),
                 'description': obj.get('Description', ''),
                 'hinge': obj.get('Door', ''),
                 'open': obj.get('Open', '')}
